@@ -45,6 +45,10 @@ def _apply_rewrite(doc: Doc, finding: Finding) -> str:
     before = lines[: section.start_line - 1]
     after = lines[section.end_line :]
     new_section_lines = finding.rewritten_text.splitlines()
+    while new_section_lines and new_section_lines[-1] == "":
+        new_section_lines.pop()
+    if after:
+        new_section_lines.append("")
     return "\n".join(before + new_section_lines + after) + "\n"
 
 
